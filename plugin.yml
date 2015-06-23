@@ -1,0 +1,16 @@
+name: DiscoArmor
+
+author: yourname
+
+main: discoarmor.DiscoArmor
+
+commands:
+    discoarmor:
+        description: Your description goes here
+        usage: Usage of the command goes here
+    discoarmor_admin:
+        description: Your description goes here
+        usage: Usage of the command goes here
+
+version: 0.1
+
