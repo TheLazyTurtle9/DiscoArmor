@@ -11,6 +11,8 @@ commands:
     discoarmor_admin:
         description: Your description goes here
         usage: Usage of the command goes here
+    putArmorOn:
+        description: Test command to put armor on.
 
 version: 0.1
 
