@@ -8,9 +8,19 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.Color;
 
 public class DiscoArmor extends JavaPlugin {
   public static Logger log = Logger.getLogger("Minecraft");
+
+  ItemStack helmet = new ItemStack(Material.LEATHER_HELMET, 1);
+  ItemStack tunic = new ItemStack(Material.LEATHER_CHESTPLATE, 1);
+  ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS, 1);
+  ItemStack booties = new ItemStack(Material.LEATHER_BOOTS, 1);
+
   public void onEnable() {
     log.info("[DiscoArmor] Start up.");
   }
@@ -21,27 +31,29 @@ public class DiscoArmor extends JavaPlugin {
     log.info("[DiscoArmor] Server stopping.");
   }
 
+  public static ItemStack colorize(ItemStack item, Color color){
+  LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
+  meta.setColor(color);
+  item.setItemMeta(meta);
+  return item;
+}
   public void putArmorOn(Player me){
-    Player player = me;
+    final Player player = me;
 
-    Material[] helmetColors = new Material[16];
-    Material[] tunicColors = new Material[16];
-    Material[] leggingColors = new Material[16];
-    Material[] bootieColors = new Material[16];
+    BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+        scheduler.scheduleSyncDelayedTask(this, new Runnable() {
+            @Override
+            public void run() {
+                colorize(helmet, Color.RED);
+                colorize(helmet, Color.BLUE);
+                colorize(helmet, Color.AQUA);
+            }
+        }, 20L);
 
-    helmetColors[0] = Material.LEATHER_HELMET;
-    tunicColors[0] = Material.LEATHER_CHESTPLATE;
-    leggingColors[0] = Material.LEATHER_LEGGINGS;
-    bootieColors[0] = Material.LEATHER_BOOTS;
-
-    ItemStack helmet = new ItemStack(helmetColors[0], 1);
-    ItemStack tunic = new ItemStack(tunicColors[0], 1);
-    ItemStack leggings = new ItemStack(leggingColors[0], 1);
-    ItemStack booties = new ItemStack(bootieColors[0], 1);
     player.getInventory().setItem(39, helmet);
-    player.getInventory().setItem(38, tunic);
-    player.getInventory().setItem(37, leggings);
-    player.getInventory().setItem(36, booties);
+    //player.getInventory().setItem(38, tunic);
+    //player.getInventory().setItem(37, leggings);
+    //player.getInventory().setItem(36, booties);
   }
 
   public boolean onCommand(CommandSender sender, Command command, 
