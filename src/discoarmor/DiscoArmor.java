@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.Color;
+import java.util.*;
 
 public class DiscoArmor extends JavaPlugin {
   public static Logger log = Logger.getLogger("Minecraft");
@@ -37,20 +38,23 @@ public class DiscoArmor extends JavaPlugin {
   item.setItemMeta(meta);
   return item;
 }
+
   public void putArmorOn(Player me){
     final Player player = me;
-
-    BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-        scheduler.scheduleSyncDelayedTask(this, new Runnable() {
+    final Color[] colors = new Color[16];
+    colors[0] = Color.BLUE;
+    colors[1] = Color.YELLOW;
+    colors[2] = Color.ORANGE;
+    colors[3] = Color.RED;
+      BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
-                colorize(helmet, Color.RED);
-                colorize(helmet, Color.BLUE);
-                colorize(helmet, Color.AQUA);
-            }
-        }, 20L);
+              Random x = new Random();
 
-    player.getInventory().setItem(39, helmet);
+              player.sendMessage("The Number is: " + x.nextInt(16));
+              } 
+          },0L, 20L);   
     //player.getInventory().setItem(38, tunic);
     //player.getInventory().setItem(37, leggings);
     //player.getInventory().setItem(36, booties);
